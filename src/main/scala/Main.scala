@@ -13,6 +13,9 @@ oraz drugi, ustawiający początkowy stan konta na 0.
 Zdefiniuj funkcję, która przyjmuje obiekt klasy osoba i przy pomocy Pattern Matching wybiera
 i zwraca napis zawierający przywitanie danej osoby.
 Zdefiniuj 2-3 różne przywitania dla konkretnych osób (z określonym imionami lub nazwiskami) oraz jedno domyślne.
+
+4.	Zdefiniuj funkcję przyjmującą dwa parametry - wartość całkowitą i funkcję operującą na wartości całkowitej.
+Zastosuj przekazaną jako parametr funkcję trzykrotnie do wartości całkowitej i zwróć wynik.
  */
 object Main {
   def main(args: Array[String]): Unit = {
@@ -40,6 +43,10 @@ object Main {
     println(s"3. Say Hello to $person2: " + sayHello(person2))
     println(s"3. Say Hello to $person3: " + sayHello(person3))
     println(s"3. Say Hello to stranger: " + sayHello(person4)+"\n")
+
+    //4
+    var number = 10
+    println(s"4. Add one three times to ${number} results in: " +  doTriple(calculate,number)+"\n")
 
 
   }
@@ -79,4 +86,8 @@ object Main {
       case default => "Hello Stranger!"
     }
   }
+
+  def doTriple(f: Int => Int, n: Int) = f(f(f(n)))
+  def calculate(n: Int) = n+1
+
 }
