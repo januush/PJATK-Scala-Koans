@@ -16,6 +16,13 @@ Zdefiniuj 2-3 różne przywitania dla konkretnych osób (z określonym imionami 
 
 4.	Zdefiniuj funkcję przyjmującą dwa parametry - wartość całkowitą i funkcję operującą na wartości całkowitej.
 Zastosuj przekazaną jako parametr funkcję trzykrotnie do wartości całkowitej i zwróć wynik.
+
+5.	Zdefiniuj klasę Osoba i trzy traity: Student, Nauczyciel, Pracownik. Osoba powinna mieć własności
+read only: imie, nazwisko, podatek. Pracownik powinien mieć własność pensja (z getterem i seterem).
+Student i Pracownik powinni przesłaniać własność podatek – dla Studenta zwracamy 0, dla Pracownika 20% pensji.
+Nauczyciel powinien dziedziczyć z Pracownika, dla niego podatek zwraca 10% pensji. Stwórz obiekty z każdym z traitów,
+pokaż jak podatek działa dla każdego z nich. Stwórz obiekty z traitami Student i Pracownik,
+pokaż jak podatek zadziała w zależności od kolejności w jakiej te traity zostały dodane przy tworzeniu obiektu.
  */
 object Main {
   def main(args: Array[String]): Unit = {
@@ -48,6 +55,25 @@ object Main {
     var number = 10
     println(s"4. Add one three times to ${number} results in: " +  doTriple(calculate,number)+"\n")
 
+    //5
+    val pracownik1 = new Osoba("Bartlomiej","Janusz") with Pracownik
+    println(s"Pensja pracownika: ${pracownik1.imie} ${pracownik1.nazwisko} (domyslna) wynosi ${pracownik1.get_pensja}, a podatek ${pracownik1.get_podatek}")
+
+    //read only: imie, nazwisko, podatek
+    //pracownik.imie = "X"
+    //pracownik.nazwisko = "Y"
+    //pracownik.podatek = 0
+
+    pracownik1.set_pensja(1000)
+    println(s"Pensja pracownika: ${pracownik1.imie} ${pracownik1.nazwisko} po podwyzce wynosi ${pracownik1.get_pensja}, a podatek ${pracownik1.get_podatek}"+"\n")
+
+    val nauczyciel1 = new Osoba("Karol", "Karolkiewicz") with Nauczyciel
+    println(s"Pensja nauczyciela: ${nauczyciel1.imie} ${nauczyciel1.nazwisko} (domyslna) wynosi ${nauczyciel1.get_pensja}, a podatek ${nauczyciel1.get_podatek}")
+    nauczyciel1.set_pensja(1000)
+    println(s"Pensja nauczyciela: ${nauczyciel1.imie} ${nauczyciel1.nazwisko} po podwyzce wynosi ${nauczyciel1.get_pensja}, a podatek ${nauczyciel1.get_podatek}" + "\n")
+
+    val student1 = new Osoba("Student", "Studencki") with Student
+    println(s"Podatek studenta: ${student1.imie} ${student1.nazwisko} wynosi ${student1.get_podatek}" + "\n")
 
   }
 
@@ -90,4 +116,38 @@ object Main {
   def doTriple(f: Int => Int, n: Int) = f(f(f(n)))
   def calculate(n: Int) = n+1
 
+  /*
+  5.	Zdefiniuj klasę Osoba i trzy traity: Student, Nauczyciel, Pracownik. Osoba powinna mieć własności
+      read only: imie, nazwisko, podatek. Pracownik powinien mieć własność pensja (z getterem i seterem).
+      Student i Pracownik powinni przesłaniać własność podatek – dla Studenta zwracamy 0, dla Pracownika 20% pensji.
+      Nauczyciel powinien dziedziczyć z Pracownika, dla niego podatek zwraca 10% pensji. Stwórz obiekty z każdym z traitów,
+      pokaż jak podatek działa dla każdego z nich. Stwórz obiekty z traitami Student i Pracownik,
+      pokaż jak podatek zadziała w zależności od kolejności w jakiej te traity zostały dodane przy tworzeniu obiektu.
+   */
+  abstract class Osoba(val imie: String, val nazwisko: String)
+
+  trait Pracownik {
+    private var pensja = 100.0
+    private val podatek = 0.2
+
+    def get_pensja(): Double ={
+      return pensja
+    }
+    def set_pensja(x: Double){
+      pensja = x
+    }
+    def get_podatek(): Double ={
+      return podatek * get_pensja()
+    }
+
+  }
+
+  trait Student {
+    def get_podatek = 0.0
+  }
+
+  trait Nauczyciel extends Pracownik {
+    private val podatek = 0.1
+    override def get_podatek = podatek * get_pensja
+  }
 }
