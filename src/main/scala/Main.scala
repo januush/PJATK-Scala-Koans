@@ -25,129 +25,146 @@ pokaż jak podatek działa dla każdego z nich. Stwórz obiekty z traitami Stude
 pokaż jak podatek zadziała w zależności od kolejności w jakiej te traity zostały dodane przy tworzeniu obiektu.
  */
 object Main {
-  def main(args: Array[String]): Unit = {
+	def main(args: Array[String]): Unit = {
 
-    val weekDays: List[String] = List("Poniedzialek", "Wtorek", "Sroda", "Czwartek", "Piatek", "Sobota", "Niedziela")
+		val weekDays: List[String] = List("Poniedzialek", "Wtorek", "Sroda", "Czwartek", "Piatek", "Sobota", "Niedziela")
 
-    //1
-    println("1. PatternMatching: " + weekDays(0) + " - " + matchDay(weekDays(0)))
-    println("1. PatternMatching: " + weekDays(6) + " - " + matchDay(weekDays(6))+"\n")
+		//1
+		println("1. PatternMatching: " + weekDays(0) + " - " + matchDay(weekDays(0)))
+		println("1. PatternMatching: " + weekDays(6) + " - " + matchDay(weekDays(6))+"\n")
 
-    //2
-    val bankAccount = new BankAccount()
-    val newBanckAccount = new BankAccount(123.45)
+		//2
+		val bankAccount = new BankAccount()
+		val newBanckAccount = new BankAccount(123.45)
 
-    println("2. Stan konta z poczatkowa suma: " + bankAccount.balance)
-    println("2. Stan drugiego konta z domyslna suma: " + newBanckAccount.balance)
+		println("2. Stan konta z poczatkowa suma: " + bankAccount.balance)
+		println("2. Stan drugiego konta z domyslna suma: " + newBanckAccount.balance)
 
-    //3
-    val person1 = new Person("Kasia","Kasiowa")
-    val person2 = new Person("Basia","Basiowa")
-    val person3 = new Person("Marysia", "Marysiowa")
-    val person4 = new Person("Adam", "Adamski")
+    bankAccount.transfer(100.0)
+    newBanckAccount.withdraw(10.0)
 
-    println(s"3. Say Hello to $person1: " + sayHello(person1))
-    println(s"3. Say Hello to $person2: " + sayHello(person2))
-    println(s"3. Say Hello to $person3: " + sayHello(person3))
-    println(s"3. Say Hello to stranger: " + sayHello(person4)+"\n")
+    println("2. Stan konta z poczatkowa suma po wplacie: " + bankAccount.balance)
+    println("2. Stan drugiego konta z domyslna suma po wyplacie: " + newBanckAccount.balance + "\n")
 
-    //4
-    var number = 10
-    println(s"4. Add one three times to ${number} results in: " +  doTriple(calculate,number)+"\n")
+		//3
+		val person1 = new Person("Kasia","Kasiowa")
+		val person2 = new Person("Basia","Basiowa")
+		val person3 = new Person("Marysia", "Marysiowa")
+		val person4 = new Person("Adam", "Adamski")
 
-    //5
-    val pracownik1 = new Osoba("Bartlomiej","Janusz") with Pracownik
-    println(s"Pensja pracownika: ${pracownik1.imie} ${pracownik1.nazwisko} (domyslna) wynosi ${pracownik1.get_pensja}, a podatek ${pracownik1.get_podatek}")
+		println(s"3. Say Hello to $person1: " + sayHello(person1))
+		println(s"3. Say Hello to $person2: " + sayHello(person2))
+		println(s"3. Say Hello to $person3: " + sayHello(person3))
+		println(s"3. Say Hello to stranger: " + sayHello(person4)+"\n")
 
-    //read only: imie, nazwisko, podatek
-    //pracownik.imie = "X"
-    //pracownik.nazwisko = "Y"
-    //pracownik.podatek = 0
+		//4
+		var number = 10
+		println(s"4. Add one three times to ${number} results in: " +  doTriple(calculate,number)+"\n")
 
-    pracownik1.set_pensja(1000)
-    println(s"Pensja pracownika: ${pracownik1.imie} ${pracownik1.nazwisko} po podwyzce wynosi ${pracownik1.get_pensja}, a podatek ${pracownik1.get_podatek}"+"\n")
+		//5
+		val pracownik1 = new Osoba("Bartlomiej","Janusz") with Pracownik
+		println(s"Pensja pracownika: ${pracownik1.imie} ${pracownik1.nazwisko} (domyslna) wynosi ${pracownik1.get_pensja}, a podatek ${pracownik1.get_podatek}")
 
-    val nauczyciel1 = new Osoba("Karol", "Karolkiewicz") with Nauczyciel
-    println(s"Pensja nauczyciela: ${nauczyciel1.imie} ${nauczyciel1.nazwisko} (domyslna) wynosi ${nauczyciel1.get_pensja}, a podatek ${nauczyciel1.get_podatek}")
-    nauczyciel1.set_pensja(1000)
-    println(s"Pensja nauczyciela: ${nauczyciel1.imie} ${nauczyciel1.nazwisko} po podwyzce wynosi ${nauczyciel1.get_pensja}, a podatek ${nauczyciel1.get_podatek}" + "\n")
+		//read only: imie, nazwisko, podatek
+		//pracownik.imie = "X"
+		//pracownik.nazwisko = "Y"
+		//pracownik.podatek = 0
 
-    val student1 = new Osoba("Student", "Studencki") with Student
-    println(s"Podatek studenta: ${student1.imie} ${student1.nazwisko} wynosi ${student1.get_podatek}" + "\n")
+		pracownik1.set_pensja(1000)
+		println(s"Pensja pracownika: ${pracownik1.imie} ${pracownik1.nazwisko} po podwyzce wynosi ${pracownik1.get_pensja}, a podatek ${pracownik1.get_podatek}"+"\n")
 
-  }
+		val nauczyciel1 = new Osoba("Karol", "Karolkiewicz") with Nauczyciel
+		println(s"Pensja nauczyciela: ${nauczyciel1.imie} ${nauczyciel1.nazwisko} (domyslna) wynosi ${nauczyciel1.get_pensja}, a podatek ${nauczyciel1.get_podatek}")
+		nauczyciel1.set_pensja(1000)
+		println(s"Pensja nauczyciela: ${nauczyciel1.imie} ${nauczyciel1.nazwisko} po podwyzce wynosi ${nauczyciel1.get_pensja}, a podatek ${nauczyciel1.get_podatek}" + "\n")
 
-  def matchDay(day: String): String = {
-    day match {
-      case "Poniedzialek" => "Praca"
-      case "Wtorek" => "Praca"
-      case "Sroda" => "Praca"
-      case "Czwartek" => "Praca"
-      case "Piatek" => "Praca"
-      case "Sobota" => "Weekened"
-      case "Niedziela" => "Weekend"
-    }
-  }
+		val student1 = new Osoba("Student", "Studencki") with Student
+		println(s"Podatek studenta: ${student1.imie} ${student1.nazwisko} wynosi ${student1.get_podatek}" + "\n")
 
-  class BankAccount(val balance: Double){
+	}
 
-    def this() = this(balance = 0)
+	def matchDay(day: String): String = {
+		day match {
+			case "Poniedzialek" => "Praca"
+			case "Wtorek" => "Praca"
+			case "Sroda" => "Praca"
+			case "Czwartek" => "Praca"
+			case "Piatek" => "Praca"
+			case "Sobota" => "Weekened"
+			case "Niedziela" => "Weekend"
+		}
+	}
 
-    def withdraw(){
-      System.out.println("Wyplata pieniedzy")
-    }
+	class BankAccount {
+		private var _balance:Double = _
+		def balance = _balance
 
-    def transfer(){
-      System.out.println("Wplata pieniedzy")
-    }
-  }
+		def this(initBalance:Double) {
+			this()
+			this._balance = initBalance
+		}
 
-  case class Person(val name: String, val surname: String)
+		def withdraw(moneyToTake:Double) = {
+			if (moneyToTake<=_balance) {
+				_balance -= moneyToTake
+        System.out.println("Wyplata pieniedzy")
+      }
+		}
 
-  def sayHello(person: Main.Person): String ={
-    person match {
-      case Person(name,surname) if name == "Kasia" => s"Halo $name $surname!"
-      case Person(name,surname) if name == "Basia" => s"Salut $name $surname!"
-      case Person(name,surname) if name == "Marysia" => s"Hi $name $surname!"
-      case default => "Hello Stranger!"
-    }
-  }
+		def transfer(moneyIn:Double) = {
+			if (moneyIn>0.0) {
+				_balance += moneyIn
+        System.out.println("Wplata pieniedzy")
+      }
+		}
+	}
 
-  def doTriple(f: Int => Int, n: Int) = f(f(f(n)))
-  def calculate(n: Int) = n+1
+	case class Person(val name: String, val surname: String)
 
-  /*
-  5.	Zdefiniuj klasę Osoba i trzy traity: Student, Nauczyciel, Pracownik. Osoba powinna mieć własności
-      read only: imie, nazwisko, podatek. Pracownik powinien mieć własność pensja (z getterem i seterem).
-      Student i Pracownik powinni przesłaniać własność podatek – dla Studenta zwracamy 0, dla Pracownika 20% pensji.
-      Nauczyciel powinien dziedziczyć z Pracownika, dla niego podatek zwraca 10% pensji. Stwórz obiekty z każdym z traitów,
-      pokaż jak podatek działa dla każdego z nich. Stwórz obiekty z traitami Student i Pracownik,
-      pokaż jak podatek zadziała w zależności od kolejności w jakiej te traity zostały dodane przy tworzeniu obiektu.
-   */
-  abstract class Osoba(val imie: String, val nazwisko: String)
+	def sayHello(person: Main.Person): String ={
+		person match {
+			case Person(name,surname) if name == "Kasia" => s"Halo $name $surname!"
+			case Person(name,surname) if name == "Basia" => s"Salut $name $surname!"
+			case Person(name,surname) if name == "Marysia" => s"Hi $name $surname!"
+			case default => "Hello Stranger!"
+		}
+	}
 
-  trait Pracownik {
-    private var pensja = 100.0
-    private val podatek = 0.2
+	def doTriple(f: Int => Int, n: Int) = f(f(f(n)))
+	def calculate(n: Int) = n+1
 
-    def get_pensja(): Double ={
-      return pensja
-    }
-    def set_pensja(x: Double){
-      pensja = x
-    }
-    def get_podatek(): Double ={
-      return podatek * get_pensja()
-    }
+	/*
+	5.	Zdefiniuj klasę Osoba i trzy traity: Student, Nauczyciel, Pracownik. Osoba powinna mieć własności
+			read only: imie, nazwisko, podatek. Pracownik powinien mieć własność pensja (z getterem i seterem).
+			Student i Pracownik powinni przesłaniać własność podatek – dla Studenta zwracamy 0, dla Pracownika 20% pensji.
+			Nauczyciel powinien dziedziczyć z Pracownika, dla niego podatek zwraca 10% pensji. Stwórz obiekty z każdym z traitów,
+			pokaż jak podatek działa dla każdego z nich. Stwórz obiekty z traitami Student i Pracownik,
+			pokaż jak podatek zadziała w zależności od kolejności w jakiej te traity zostały dodane przy tworzeniu obiektu.
+	 */
+	abstract class Osoba(val imie: String, val nazwisko: String)
 
-  }
+	trait Pracownik {
+		private var pensja = 100.0
+		private val podatek = 0.2
 
-  trait Student {
-    def get_podatek = 0.0
-  }
+		def get_pensja(): Double ={
+			return pensja
+		}
+		def set_pensja(x: Double){
+			pensja = x
+		}
+		def get_podatek(): Double ={
+			return podatek * get_pensja()
+		}
 
-  trait Nauczyciel extends Pracownik {
-    private val podatek = 0.1
-    override def get_podatek = podatek * get_pensja
-  }
+	}
+
+	trait Student {
+		def get_podatek = 0.0
+	}
+
+	trait Nauczyciel extends Pracownik {
+		private val podatek = 0.1
+		override def get_podatek = podatek * get_pensja
+	}
 }
