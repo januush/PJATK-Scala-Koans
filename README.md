@@ -2,7 +2,7 @@
 
 Repozytorium zawiera rozwiązania poniższych zadań w języku Scala.
 
-  1.	Wykorzystaj Pattern Matching w funkcji przyjmującej parametr typu String.
+  1.		Wykorzystaj Pattern Matching w funkcji przyjmującej parametr typu String.
 	Dla stringów odpowiadających nazwom dni tygodnia funkcja
 	ma zwrócić „Praca” i „Weekend” (odpowiednio dla dni roboczych i wolnych),
 	dla pozostałych napisów „Nie ma takiego dnia”.
